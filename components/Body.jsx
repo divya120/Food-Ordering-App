@@ -8,6 +8,9 @@ export const resParsed = swiggyData.data.cards[2].data.data.cards;
 
 const Body = () => {
     const [listOfRestaurants, setlistOfRestaurant] = useState([])
+    const [searchText, setsearchtext] = useState();
+    const[filterList, setfilterList] = useState([]);
+
 
   useEffect(() => {
     fetchData()
@@ -20,30 +23,43 @@ const Body = () => {
     const json = await data.json();
     console.log(json?.data?.cards[2]?.data?.data)
     setlistOfRestaurant(json?.data?.cards[2]?.data?.data.cards)
+    setfilterList(json?.data?.cards[2]?.data?.data.cards)
   }
 
   return listOfRestaurants.length === 0?<Shimmer/>:(
       <div className="body">
         <div className="search-ctn">
-          <div className="search">Search</div>
-        </div>
+          <input type="text" className="search" value={searchText} placeholder="Search" onChange={(event)=>{
+            setsearchtext(event.target.value)
+          }}></input>
+          <button className="button-rating"  onClick={(event)=>{
+          let tempFilterList = listOfRestaurants.filter((res)=>{
+            return (res.data.name.toLowerCase().includes(searchText.toLowerCase()))
+           })
+           setfilterList(tempFilterList)
+
+          }}>Search</button>
         <div className="top-10">
           <button className="filter-btn" onClick={
             ()=> {
-              filterList = listOfRestaurants.filter((res)=>
+              console.log(listOfRestaurants)
+              let tempFilterList = listOfRestaurants.filter((res)=>
               res.data.avgRating>4
               )
-              setlistOfRestaurant(filterList);
+              setfilterList(tempFilterList);
             }
           }>
             Top Restaurants
           </button>
+          </div>
         </div>
   
         <div className="res-container">
-          {listOfRestaurants.map((restaurant, index)=>{
+          {filterList.map((restaurant, index)=>{
               return(<RestaurantCards resData={restaurant} key={index} />)
-          })}
+          })
+          
+          }
           
         </div>
       </div>
