@@ -26,7 +26,7 @@ const Body = () => {
     setfilterList(json?.data?.cards[2]?.data?.data.cards)
   }
 
-  return listOfRestaurants.length === 0?<Shimmer/>:(
+  return listOfRestaurants.length == 0?<Shimmer/>:(
       <div className="body">
         <div className="search-ctn">
           <input type="text" className="search" value={searchText} placeholder="Search" onChange={(event)=>{
