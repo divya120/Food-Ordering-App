@@ -2,6 +2,8 @@ import RestaurantCards from "./RestaurantCard";
 import swiggyData from "../utils/swiggy.json"
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { RES_LIST } from "../utils/constants";
+
 
 export const resParsed = swiggyData.data.cards[2].data.data.cards;
 
@@ -19,7 +21,7 @@ const Body = () => {
 
 
   const fetchData = async() =>{
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.1202009&lng=72.8392592&page_type=DESKTOP_WEB_LISTING");
+    const data = await fetch(RES_LIST);
     const json = await data.json();
     setlistOfRestaurant(json?.data?.cards[2]?.data?.data.cards)
     setfilterList(json?.data?.cards[2]?.data?.data.cards)

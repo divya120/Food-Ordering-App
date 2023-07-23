@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
-
+import { useParams } from "react-router-dom";
+import { RES_URL } from "../utils/constants";
 
 const RestaurantInfo = () =>{
     const [resInfo, setresInfo] = useState(null);
@@ -9,10 +10,13 @@ const RestaurantInfo = () =>{
         fetchData()
     }, [])
 
+    const {resId} = useParams();
+    console.log(resId);
+
     const fetchData = async() =>{
-        const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.1202009&lng=72.8392592&restaurantId=23702&catalog_qa=undefined&submitAction=ENTER");
+        const data = await fetch(RES_URL+resId);
         const json = await data.json();
-        // console.log(json)
+        console.log(json)
         setresInfo(json.data);
         // console.log(resInfo)
     }
@@ -44,9 +48,10 @@ const RestaurantInfo = () =>{
          } }>
             {
                 
-            recommended.map((card)=>{
+            recommended.map((card, index)=>{
                 // TODO: Create a div to make it look like a card.
-                return <li>{card.card.info.name}</li>
+                
+                return <li key={index}>{card.card.info.name}</li>
             })}
             
          </div>
