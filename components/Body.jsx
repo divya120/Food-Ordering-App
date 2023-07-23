@@ -3,6 +3,7 @@ import swiggyData from "../utils/swiggy.json"
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { RES_LIST } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 
 export const resParsed = swiggyData.data.cards[2].data.data.cards;
@@ -57,7 +58,8 @@ const Body = () => {
   
         <div className="res-container">
           {filterList.map((restaurant, index)=>{
-              return(<RestaurantCards resData={restaurant} key={index} />)
+            
+              return(<Link to={"/restaurant/"+restaurant.data.id} key={restaurant.data.id}><RestaurantCards resData={restaurant}   /></Link>)
           })
           
           }
