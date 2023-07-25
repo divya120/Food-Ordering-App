@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { RES_LIST } from "../utils/constants";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 
 export const resParsed = swiggyData.data.cards[2].data.data.cards;
@@ -26,6 +27,15 @@ const Body = () => {
     const json = await data.json();
     setlistOfRestaurant(json?.data?.cards[2]?.data?.data.cards)
     setfilterList(json?.data?.cards[2]?.data?.data.cards)
+  }
+
+  const onlineStatus = useOnlineStatus();
+  // console.log(onlineStatus)
+
+  if(onlineStatus===false){
+    return(
+      <h1>Sorrryyyy! You are offline!</h1>
+    )
   }
 
   return listOfRestaurants.length == 0?<Shimmer/>:(
