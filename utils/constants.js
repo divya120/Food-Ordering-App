@@ -4,4 +4,4 @@ export const LOGO_URL = "https://cdn-images-1.medium.com/max/1200/1*v5SYqjYEdQMP
 
 export const RES_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.1202009&lng=72.8392592&restaurantId="
 
-export const RES_LIST = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.1202009&lng=72.8392592&page_type=DESKTOP_WEB_LISTING"; 
+export const RES_LIST = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.1202009&lng=72.8392592"; 

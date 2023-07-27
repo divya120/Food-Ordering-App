@@ -1,7 +1,7 @@
-import { LOGO_URL } from "../utils/constants";  
+import { LOGO_URL } from "../../utils/constants";  
 import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
-import {useOnlineStatus} from '../utils/useOnlineStatus';
+import {useOnlineStatus} from '../../utils/useOnlineStatus';
 
 
 
@@ -11,8 +11,8 @@ const Header = () => {
   // const onlineStatus = useOnlineStatus();
 
   return (
-    <div className="header">
-      <div className="res-logo">
+    <div className="flex justify-between p-2 bg-gray-200 shadow-xl">
+      <div className="w-20 m-5">
         <img
           src= {LOGO_URL}
           className="logo"
@@ -20,8 +20,8 @@ const Header = () => {
         ></img>
       </div>
 
-      <div className="nav-items">
-        <ul>
+      <div className="flex items-center">
+        <ul className="flex justify-center items-center p-5 space-x-9">
           {/* <li> Online:{useOnlineStatus()? "✅":"🛑"}</li> */}
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About us</Link></li>

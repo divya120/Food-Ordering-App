@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import RestaurantInfo from "../components/RestaurantInfo"
+import RestaurantInfo from "../src/components/RestaurantInfo"
 import { RES_URL } from "./constants"
 
 const useRestaurantInfo=(resId)=>{
