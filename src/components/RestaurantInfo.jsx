@@ -5,46 +5,50 @@ import { RES_URL } from "../../utils/constants";
 import useRestaurantInfo from "../../utils/useRestaurantInfo";
 import Accordion from "./Accordion";
 
-const RestaurantInfo = () =>{
+const RestaurantInfo = () => {
+  const { resId } = useParams();
 
+  const resInfo = useRestaurantInfo(resId);
 
-    const {resId} = useParams();
+  const [showIndex, setshowIndex] = useState(null);
+  const [clickedIndex, setClickedIndex] = useState(-1);
+  // console.log(!showItem)
 
+  // const{ name, cuisines, avgRating, cloudinaryImageId, costForTwo} = resInfo?.cards[0]?.card.card.info
 
-    const resInfo = useRestaurantInfo(resId);
-     
+  if (resInfo === null) return <Shimmer />;
 
+  const { cards } = resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR;
 
-    // const{ name, cuisines, avgRating, cloudinaryImageId, costForTwo} = resInfo?.cards[0]?.card.card.info
-    
-    if(resInfo===null) return <Shimmer/>;
+  const categories = cards.filter((card) =>
+    card.card?.card?.["@type"].endsWith("ItemCategory")
+  );
 
-    const {cards} =resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR;
-
-
-
-    const categories = cards.filter((card) => card.card?.card?.["@type"].endsWith("ItemCategory"))
-
-    
-    return(
-        <div>
-            {/* <h1 className="flex justify-center text-3xl font-bold m-5 text-gray-700">{name}</h1>
+  return (
+    <div>
+      {/* <h1 className="flex justify-center text-3xl font-bold m-5 text-gray-700">{name}</h1>
             <div className="flex justify-center space-x-6">
             <span>  <p className="flex justify-center text-md text-gray-500">{cuisines.join(", ")}</p></span>
            <span><p className="flex justify-center text-md text-gray-500">₹{costForTwo/100}</p></span>
            <span><p className="flex justify-center text-md text-gray-500">🔥 {avgRating}</p></span>
             </div> */}
-           
-           {categories.map((category)=>{
-            return(
-                <div>
-                    <Accordion data={category}/>
-                    </div>
-                
-            )
-           })}
-        </div>
-    )
-}
+
+      {categories.map((category, index) => {
+        return (
+
+            <Accordion
+              key={category.title}
+              data={category}
+              isClicked={clickedIndex === index}
+              onClick={() => {
+                setClickedIndex(index);
+              }}
+            />
+
+        );
+      })}
+    </div>
+  );
+};
 
 export default RestaurantInfo;

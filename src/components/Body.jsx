@@ -1,10 +1,11 @@
 import RestaurantCard, {WithPromotedRestaurant} from "./RestaurantCard";
 import swiggyData from "../../utils/swiggy.json";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { RES_LIST } from "../../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../../utils/useOnlineStatus";
+import UserContext from "../../utils/UserContext";
 
 export const resParsed = swiggyData.data.cards[2].data.data.cards;
 
@@ -15,6 +16,8 @@ const Body = () => {
 
   const RestaurantCardWithPromotedLabel = WithPromotedRestaurant(RestaurantCard);
 
+  const {setUserInfo, loggedInUser} = useContext(UserContext);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,7 +26,7 @@ const Body = () => {
     const data = await fetch(RES_LIST);
     const json = await data.json();
     // console.log(json.data.cards[5].card.card.gridElements.infoWithStyle.restaurants)
-    console.log(json);
+    // console.log(json);
     // setlistOfRestaurant(json?.data?.cards[2]?.data?.data.cards)
     // setfilterList(json?.data?.cards[2]?.data?.data.cards)
     setlistOfRestaurant(resParsed);
@@ -79,6 +82,9 @@ const Body = () => {
           >
             Top Restaurants
           </button>
+          <input className="p-2 border border-gray-500 m-5 rounded-lg" value={loggedInUser} onChange={(e)=>{
+            setUserInfo(e.target.value)
+          }}></input>
         </div>
       </div>
 

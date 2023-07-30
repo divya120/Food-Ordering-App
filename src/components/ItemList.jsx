@@ -5,7 +5,7 @@ const ItemList = ({items}) =>{
     return(
         <div>
            {!!items && items.map((item)=>{
-            console.log(item.card.info.price)
+            // console.log(item.card.info.price)
             return(
                 <div className="text-left border-b-2 border-gray-300 flex justify-between">
                     <span>
